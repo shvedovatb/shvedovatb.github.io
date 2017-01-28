@@ -1,0 +1,126 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+ul {
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.container{
+	background: #d3d3d3;
+	height: 100vh;
+}
+header {
+	padding: 20px;	
+}
+.logo{
+	text-align: center;
+}
+.time span,
+.personal a {
+	display: block;
+	line-height: 21px;
+}
+.personal a {
+	color: #E87532;
+}
+.personal a:hover {
+	text-decoration: underline;;
+}
+.time span {
+	font-size: 12px;
+}
+.companions{
+	padding: 10px;
+	border: 1px solid #E87532;
+	border-radius: 6px;
+	background: #f3f3f3;
+	height: 60vh;
+	margin: 10px 0;
+}
+.companions, .tab_cont, .message textarea{
+	overflow-y: scroll;
+}
+.tab_cont, .message {	
+	padding: 10px;
+	border: 1px solid #E87532;
+	background: #fff;
+}
+.chat li {
+	display: inline-block;
+	border: 1px solid #E87532;
+	border-radius: 6px 6px 0 0;
+	background: #e3e3e3;
+	padding: 2px 5px;
+}
+.chat li.activ {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+}
+.tab_cont {
+	margin: -1px 0 0 0;
+	border-radius: 0 6px 6px;
+	height: 40vh;	
+}
+.message {
+	margin: 10px 0;
+	border-radius: 6px;
+}
+.message textarea {
+	width: 100%;
+	height: 10vh;
+}
+.message form {
+	overflow: hidden;
+}
+.message .edit {
+	float: left;
+}
+.edit a {
+	color: #E87532;
+	border: 1px solid #E87532;
+	border-radius: 3px;
+}
+.edit i {
+	margin: 5px;
+}
+.edit a:hover {
+	background: #e3e3e3;
+}
+.message button {
+  float: right;
+  background: #e87532;
+  background-image: -webkit-linear-gradient(top, #e87532, #d14d00);
+  background-image: -moz-linear-gradient(top, #e87532, #d14d00);
+  background-image: -ms-linear-gradient(top, #e87532, #d14d00);
+  background-image: -o-linear-gradient(top, #e87532, #d14d00);
+  background-image: linear-gradient(to bottom, #e87532, #d14d00);
+  -webkit-border-radius: 6;
+  -moz-border-radius: 6;
+  border-radius: 6px;
+  border: 1px solid #d14d00;
+  font-family: Arial;
+  color: #000000;
+  font-size: 14px;
+  padding: 5px;
+  text-decoration: none;
+}
+.message button:hover {
+  background: #d14d00;
+  background-image: -webkit-linear-gradient(top, #d14d00, #e87532);
+  background-image: -moz-linear-gradient(top, #d14d00, #e87532);
+  background-image: -ms-linear-gradient(top, #d14d00, #e87532);
+  background-image: -o-linear-gradient(top, #d14d00, #e87532);
+  background-image: linear-gradient(to bottom, #d14d00, #e87532);
+  text-decoration: none;
+}
+.message_info {
+	display: block;
+	font-size: 10px;
+
+}
