@@ -16,10 +16,21 @@ a{
 	height: 100vh;
 }
 header {
-	padding: 20px;	
+	padding: 0 20px;
+	border: 1px solid #E87532;
+	border-radius: 6px;
+	margin: 15px 0;
+	background: #f3f3f3; 
 }
 .logo{
 	text-align: center;
+}
+img {
+	width: 100%;
+	height: auto;
+}
+.time, .personal {
+	padding-top: 15px;
 }
 .time span,
 .personal a {
@@ -35,37 +46,78 @@ header {
 .time span {
 	font-size: 12px;
 }
-.companions{
+.companions, .me {
 	padding: 10px;
 	border: 1px solid #E87532;
 	border-radius: 6px;
 	background: #f3f3f3;
-	height: 60vh;
-	margin: 10px 0;
+	
+	margin-bottom: 10px;
 }
-.companions, .tab_cont, .message textarea{
+.companions {
+	height: 48vh;
+}
+.companions a, .chat a {
+	color: #000;
+}
+.companions a:hover, .chat .active a{
+	color: #E87532;
+	font-weight: bold;
+}
+.companions .Active a:before {
+	content: "\f058";
+	font-family: FontAwesome;
+	padding-right: 7px;
+	color: #66cc66;
+}
+.companions .Suspended a:before {
+	content: "\f017";
+	font-family: FontAwesome;
+	padding-right: 7px;
+	color: #E87532;
+}
+.listUsers, .cont, .message textarea{
 	overflow-y: scroll;
 }
-.tab_cont, .message {	
+.listUsers{
+	border: 1px solid #A9A9A9;
+	padding: 2%;
+	height: 45vh;
+}
+.tabContent, .message {	
 	padding: 10px;
 	border: 1px solid #E87532;
 	background: #fff;
 }
-.chat li {
+.chat li.tab {
 	display: inline-block;
 	border: 1px solid #E87532;
 	border-radius: 6px 6px 0 0;
 	background: #e3e3e3;
 	padding: 2px 5px;
 }
-.chat li.activ {
+.chat li.tab a{
+	cursor: pointer;
+	padding-right: 15px;
+} 
+.chat li.active {
 	background: #fff;
 	border-bottom: 1px solid #fff;
 }
-.tab_cont {
+.tabContent {
 	margin: -1px 0 0 0;
 	border-radius: 0 6px 6px;
-	height: 40vh;	
+	height: 38vh;	
+}
+.cont {
+	display: none;
+	height: 35vh;
+	border: 1px solid #A9A9A9;
+	padding: 2%;
+
+}
+.current {
+	display: block;
 }
 .message {
 	margin: 10px 0;
