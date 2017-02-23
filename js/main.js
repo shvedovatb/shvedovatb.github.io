@@ -1,16 +1,83 @@
 "use strict";
-var users = {
-  "data": [
-    {"name":"Jim Smith", "status":"Active"},
-    {"name":"Iren Dou", "status":"Active"},
-    {"name":"Annabel Stone", "status":"Active"},
-    {"name":"Bryan Byrd", "status":"Suspended"},
-    {"name":"John Snow", "status":"Active"},
-    {"name":"Andrew Simpson", "status":"Active"},
-    {"name":"Alison Black", "status":"Active"},
-    {"name":"Sasha Stuart", "status":"Suspended"}
-  ]
 
+const URL_USERS='http://mockbin.com/bin/b23dd106-4ac5-431f-baea-600457e4e834';
+const URL_MESSAGES='http://mockbin.com/bin/a61c099a-74a5-43a4-865b-0f723572a381';
+//получение пользователей с сервера
+function getUsers() {	
+	var request = new XMLHttpRequest();
+	request.open('GET', URL_USERS, true);
+	request.send();
+	request.onload = function() {
+	    if (request.status >= 200 && request.status < 400) {
+		    // Обработчик успешного ответа
+		    var response;
+		    response = request.responseText;
+  			usersData(response);
+  		} else {
+	    // Обработчик ответа в случае ошибки
+		}
+	};
+}
+//получение сообщений с сервера
+function getMessages() {
+	var requestMes = new XMLHttpRequest();
+	requestMes.open('GET', URL_MESSAGES, true);
+	requestMes.send();
+	requestMes.onload = function() {
+		var responseMes;
+		responseMes = requestMes.responseText;
+		var requestUs = new XMLHttpRequest();
+		requestUs.open('GET', URL_USERS, true);
+		requestUs.send();
+		requestUs.onload = function() {
+			var responseUs;
+			responseUs = requestUs.responseText;
+			messagesData(responseMes, responseUs);
+		}
+	}
+}
+
+//вывод сообщений на страницу
+function messagesData(dataMes, dataUs) {
+	var content = document.getElementById("listTabContent").getElementsByTagName('div')[0];
+	content.innerHTML = "";
+	JSON.parse(dataMes).forEach(
+		function (obj1) {					
+			JSON.parse(dataUs).forEach(
+				function (obj2) {
+					if (obj1.user==obj2.user_id){
+						
+						var p = document.createElement('p');
+						p.innerHTML = `<b>${obj2.username}:</b> ${obj1.message}` 
+						content.appendChild(p);
+					}							
+				}
+			);
+		}
+	);	
+}
+/*вывод списка пользователей онлайн*/
+function usersData(date) {
+	var ul = document.getElementById('companions');
+	ul.innerHTML = "";
+	JSON.parse(date).forEach(
+		function (obj) {		
+			var li = document.createElement('li');
+			var a = document.createElement('a');
+			li.className = obj.status;
+			a.innerHTML = obj.username;
+			a.addEventListener('click', function(){newTabAdd(obj.username);});
+			li.appendChild(a);
+			ul.appendChild(li);
+		}
+	);		
+}
+/*добавляем 0 перед одноциферным временем: 07:01*/
+function checkTime(i){
+	if (i<10) {
+		i="0" + i;
+	}
+	return i;
 }
 /*Вычисление текущего времени*/
 function currentTime() {
@@ -20,13 +87,6 @@ function currentTime() {
 	minutes=checkTime(minutes);
 	var currentStr='Your local time is: '+hours+"h "+minutes+'m';
 	return currentStr;
-}
-/*добавляем 0 перед одноциферным временем: 07:01*/
-function checkTime(i){
-	if (i<10) {
-		i="0" + i;
-	}
-	return i;
 }
 /*Вычисление времени пользователя в чате*/
 function onlineTime() {
@@ -69,6 +129,29 @@ function sendMessage() {
 	document.getElementById('spaces').innerHTML='0';
 	document.getElementById('puncts').innerHTML='0';
 }
+/*Добавление вкладки при клике по пользователю*/
+function newTabAdd(name) {
+	var tabNames = document.getElementById('listTabName');
+	var content = document.getElementById('listTabContent');
+	var li = document.createElement('li');
+	var a1 = document.createElement('a');
+	var a2 = document.createElement('a');
+	var icon = document.createElement('i');
+	li.className = "tab";
+	a1.innerHTML = name;
+	a1.addEventListener('click', function(){selectTab(li);});
+	icon.className = "icon-remove-sign";
+	a2.addEventListener('click', function(){deleteTab(li);});
+	a2.appendChild(icon);
+	li.appendChild(a1);
+	li.appendChild(a2);
+	tabNames.appendChild(li);
+	var div = document.createElement('div');
+	div.className = "cont";
+	content.appendChild(div);
+	/*tabNames.innerHTML += `<li class="tab"><a onclick="selectTab(this.parentNode)">${name}</a><a onclick="deleteTab(this.parentNode)"><i class="icon-remove-sign"></i></a></li>`;
+	content.innerHTML += `<div class = "cont"></div>`;*/
+}
 /*переключение вкладок*/
 function selectTab(obj) {
 	var tabs = document.querySelectorAll('.tab');
@@ -101,23 +184,10 @@ function deleteTab(obj) {
 function companionsOnline() {
 	var count = document.getElementById('companions').getElementsByTagName('li').length;
 	document.getElementById('companionsOnline').innerHTML = 'Online: '+count;
-	setTimeout('companionsOnline()', 10000);
+	setTimeout('companionsOnline()', 1000);
 }
-/*вывод списка пользователей онлайн*/
-function usersData() {
-	users.data.forEach(function (obj) {
-		var ul = document.getElementById('companions');
-		ul.innerHTML += `<li class="${obj.status}"><a onclick="newTabAdd(this.innerHTML)">${obj.name}</a></li>`;
-	})
-}
-/*Добавление вкладки при клике по пользователю*/
-function newTabAdd(name) {
-	var tabNames = document.getElementById('listTabName');
-	var content = document.getElementById('listTabContent');
-	tabNames.innerHTML += `<li class="tab"><a onclick="selectTab(this.parentNode)">${name}</a><a onclick="deleteTab(this.parentNode)"><i class="icon-remove-sign"></i></a></li>`;
-	content.innerHTML += `<div class = "cont"></div>`;
-}
-/*Добавляем красивости для сообщения (курсив, подчеркивание, ссылка*/
+
+/*Добавляем красивости для сообщения (жирный, курсив, подчеркивание, ссылка*/
 function tagAdd(obj, str1, str2) {  
     if(document.selection) {                                                                          // Для IE 
         var s = document.selection.createRange(); 
@@ -139,11 +209,13 @@ function tagAdd(obj, str1, str2) {
     } 
 } 
 
-var startTime=new Date();
+var startTime = new Date();
 window.onload = function(){	
 	outputMyTime();	
-	usersData();
+	setInterval('getUsers()', 1000);
+	document.getElementById('mainChat').addEventListener('click', function(){selectTab(this.parentNode)});
 	companionsOnline();
+	setInterval('getMessages()', 2000);
 };
 var msgInput = document.getElementById('messageInput')
 document.getElementById('bold').onclick=function(){
