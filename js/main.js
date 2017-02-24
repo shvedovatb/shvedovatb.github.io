@@ -1,7 +1,9 @@
 "use strict";
+const URL_USERS='https://main-workspace-juggerr.c9users.io:8081/user';
+const URL_MESSAGES='https://main-workspace-juggerr.c9users.io:8081/messages';
 
-const URL_USERS='http://mockbin.com/bin/b23dd106-4ac5-431f-baea-600457e4e834';
-const URL_MESSAGES='http://mockbin.com/bin/a61c099a-74a5-43a4-865b-0f723572a381';
+//const URL_USERS='http://mockbin.com/bin/b23dd106-4ac5-431f-baea-600457e4e834';
+//const URL_MESSAGES='http://mockbin.com/bin/a61c099a-74a5-43a4-865b-0f723572a381';
 //получение пользователей с сервера
 function getUsers() {	
 	var request = new XMLHttpRequest();
@@ -45,7 +47,7 @@ function messagesData(dataMes, dataUs) {
 		function (obj1) {					
 			JSON.parse(dataUs).forEach(
 				function (obj2) {
-					if (obj1.user==obj2.user_id){
+					if (obj1.user_id==obj2.user_id){
 						
 						var p = document.createElement('p');
 						p.innerHTML = `<b>${obj2.username}:</b> ${obj1.message}` 
