@@ -214,10 +214,10 @@ function tagAdd(obj, str1, str2) {
 var startTime = new Date();
 window.onload = function(){	
 	outputMyTime();	
-	setInterval('getUsers()', 1000);
+	setInterval('getUsers()', 10000);
 	document.getElementById('mainChat').addEventListener('click', function(){selectTab(this.parentNode)});
 	companionsOnline();
-	setInterval('getMessages()', 2000);
+	setInterval('getMessages()', 20000);
 };
 var msgInput = document.getElementById('messageInput')
 document.getElementById('bold').onclick=function(){
