@@ -47,8 +47,7 @@ function messagesData(dataMes, dataUs) {
 		function (obj1) {					
 			JSON.parse(dataUs).forEach(
 				function (obj2) {
-					if (obj1.user_id==obj2.user_id){
-						
+					if (obj1.user_id==obj2.user_id){						
 						var p = document.createElement('p');
 						p.innerHTML = `<b>${obj2.username}:</b> ${obj1.message}` 
 						content.appendChild(p);
