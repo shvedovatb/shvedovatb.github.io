@@ -64,13 +64,16 @@ img {
 	color: #E87532;
 	font-weight: bold;
 }
-.companions .Active a:before {
+.companions .active a:before {
 	content: "\f058";
 	font-family: FontAwesome;
 	padding-right: 7px;
 	color: #66cc66;
 }
-.companions .Suspended a:before {
+.companions .away a {
+	color: #a9a9a9;
+}
+.companions .away a:before {
 	content: "\f017";
 	font-family: FontAwesome;
 	padding-right: 7px;
